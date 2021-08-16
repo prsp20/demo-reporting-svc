@@ -11,17 +11,22 @@ export const handleUploadEvents = async (event, context, callback) => {
     return returnErrorResponse(callback, 400, 'Image is not provided');
   }
 
-  var tableName = process.env.TABLE_NAME;
-  var params = {
+  let body = JSON.parse(event.body);
+  body.id = getUuid();
+
+  const tableName = process.env.TABLE_NAME;
+  const params = {
     TableName: tableName,
-    Item: event.body
+    Item: body
   };
 
-  console.log(event.body);
+  console.log(body);
   try {
     await ddb.putItem(params).promise();
     return returnResponse(callback, 200, {message: "done"})
   } catch (error) {
+    console.log(error.message);
+    console.log(error.message);
     return returnErrorResponse(callback, 500, 'View event log failed');
   }
 };
