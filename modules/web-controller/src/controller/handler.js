@@ -36,6 +36,7 @@ export const handleUploadEvents = async (event, context, callback) => {
 };
 
 export const handleDownloadReport = async (event, context, callback) => {
+  console.log('Downloading report.....');
   const data = await createReport("guid");
   return {
     statusCode: 200,
@@ -46,7 +47,7 @@ export const handleDownloadReport = async (event, context, callback) => {
       'Content-Type': 'text/csv',
       'Content-Disposition': 'attachment; filename=report.csv'
     },
-    body: data
+    body: 'asdf,adsfsa,adsfas,dsafas'
   };
 };
 
