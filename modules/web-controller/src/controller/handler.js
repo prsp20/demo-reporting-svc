@@ -37,18 +37,17 @@ export const handleUploadEvents = async (event, context, callback) => {
 };
 
 export const handleDownloadReport = async (event, context, callback) => {
-  const workbook = createReport("guid");
-
+  const data = createReport("guid");
   return {
-    statusCode: statusCode,
+    statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT',
       'Access-Control-Allow-Headers': 'Content-Type,Content-Length,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token',
-      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': 'attachment; filename="Report.xlsx"'
+      'Content-Type': 'text/csv',
+      'Content-Disposition': 'attachment; filename=report.csv'
     },
-    body: workbook.xlsx
+    body: data
   };
 };
 
