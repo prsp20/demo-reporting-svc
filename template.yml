@@ -27,11 +27,16 @@ Resources:
         Variables:
           TABLE_NAME: !Ref SampleTable
       Events:
-        Api:
+        PostViewEvents:
           Type: Api
           Properties:
             Path: /api/rest/view-events
             Method: POST
+        DownloadViewEvents:
+          Type: Api
+          Properties:
+            Path: /api/rest/view-events/{guid}
+            Method: GET
 
   SampleTable:
     Type: AWS::Serverless::SimpleTable

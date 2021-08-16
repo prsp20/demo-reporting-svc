@@ -1,6 +1,6 @@
 import "@babel/polyfill";
 import { returnErrorResponse } from './util/ApiGatewayUtil';
-import { handleUploadEvents, handleOptionsRequest } from './controller/handler';
+import { handleUploadEvents, handleOptionsRequest, handleDownloadReport } from './controller/handler';
 import { verifyToken } from './service/TokenService'
 
 export const handler = async (event, context, callback) => {
@@ -24,6 +24,8 @@ export const handler = async (event, context, callback) => {
 
   if (path === '/api/rest/view-events' && method === 'POST') {
     return handleUploadEvents(event, context, callback);
+  } if (path.startsWith('/api/rest/view-events/') && method === 'GET') {
+    return handleDownloadReport(event, context, callback);
   } else {
     return returnErrorResponse(callback, 404, 'Resource not found');
   }
