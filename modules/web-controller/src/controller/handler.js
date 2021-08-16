@@ -1,39 +1,31 @@
-import { returnErrorResponse, returnResponse } from '../util/ApiGatewayUtil';
-import { getUuid } from '../util/util';
-var multipart = require('parse-multipart');
+import {returnErrorResponse, returnResponse} from '../util/ApiGatewayUtil';
+import {getUuid} from '../util/util';
+
 var AWS = require('aws-sdk');
-AWS.config.update({ region: 'eu-west-2' });
-var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+AWS.config.update({region: 'eu-west-2'});
+var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-export const handleUploadImage = async (event, context, callback) => {
+export const handleUploadEvents = async (event, context, callback) => {
 
-    if (event.body === null) {
-        return returnErrorResponse(callback, 400, 'Image is not provided');
-    }
+  if (event.body === null) {
+    return returnErrorResponse(callback, 400, 'Image is not provided');
+  }
 
-    let decodedImage = Buffer.from(event.body, 'base64');
-    const boundary = multipart.getBoundary(event.headers['content-type']);
-    const parts = multipart.Parse(decodedImage, boundary);
-    const firstFile = parts[0];
+  var tableName = process.env.TABLE_NAME;
+  var params = {
+    TableName: tableName,
+    Item: event.body
+  };
 
-    const fileExtension = firstFile.filename.split('.').pop();
-    const fileName = getUuid() + '.' + fileExtension;
-
-    var params = {
-        "Body": firstFile.data,
-        "Bucket": "destination-images",
-        "Key": fileName,
-        "ContentType": firstFile.type
-    };
-
-    try {
-        const result = await s3.upload(params).promise();
-        return returnResponse(callback, 200, { imageUrl: 'https://destination-images.s3.eu-west-2.amazonaws.com/' + fileName })
-    } catch (error) {
-        return returnErrorResponse(callback, 500, 'Image upload failed');
-    }
+  console.log(event.body);
+  try {
+    await ddb.putItem(params).promise();
+    return returnResponse(callback, 200, {message: "done"})
+  } catch (error) {
+    return returnErrorResponse(callback, 500, 'View event log failed');
+  }
 };
 
 export const handleOptionsRequest = (event, context, callback) => {
-    return returnResponse(callback, 200, {status: 'OK'});
+  return returnResponse(callback, 200, {status: 'OK'});
 };

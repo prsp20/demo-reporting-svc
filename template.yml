@@ -17,21 +17,21 @@ Resources:
       CodeUri: dist/web-controller/web-controller.zip
       Handler: index.handler
       Runtime: nodejs14.x
-      MemorySize: 128
-      Timeout: 100
+      MemorySize: 256
+      Timeout: 300
       Description: Example Lambda
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref SampleTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref SampleTable
+          TABLE_NAME: !Ref SampleTable
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /api/rest/{guid}/view-events
-            Method: GET
+            Path: /api/rest/view-events
+            Method: POST
 
   SampleTable:
     Type: AWS::Serverless::SimpleTable
