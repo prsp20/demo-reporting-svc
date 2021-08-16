@@ -9,12 +9,12 @@ Resources:
   WebControllerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./dist/web-controller/web-controller.zip
+      CodeUri: dist/web-controller/web-controller.zip
       Handler: index.handler
       Runtime: nodejs14.x
       MemorySize: 128
       Timeout: 100
-      Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
+      Description: Example Lambda
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref SampleTable
