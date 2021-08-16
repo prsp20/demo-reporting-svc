@@ -6,7 +6,7 @@ var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 const converter = AWS.DynamoDB.Converter;
 
 export const createReport = async (guid) => {
-  const items = findViewEvents(guid);
+  const items = await findViewEvents(guid);
   return JSON.stringify(items);
 };
 
