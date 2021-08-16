@@ -29,5 +29,5 @@ export const findViewEvents = async (packageGuid) => {
     return null;
   }
 
-  return items;
+  return items.map(item => converter.unmarshall(item));
 }

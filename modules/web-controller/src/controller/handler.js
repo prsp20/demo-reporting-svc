@@ -47,7 +47,7 @@ export const handleDownloadReport = async (event, context, callback) => {
       'Content-Type': 'text/csv',
       'Content-Disposition': 'attachment; filename=' + guid + '.csv'
     },
-    body: guid + ":" + data
+    body: data
   };
 };
 
