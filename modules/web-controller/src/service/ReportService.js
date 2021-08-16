@@ -7,7 +7,7 @@ const converter = AWS.DynamoDB.Converter;
 
 export const createReport = async (guid) => {
   const items = await findViewEvents(guid);
-  const csvStringifier = createCsvStringifier({
+  const csvStringifier = createCsvStringifier.createObjectCsvStringifier({
     header: [
       {id: 'rowNumber', title: 'Row Number'},
       {id: 'packageGuid', title: 'Package Guid'},
