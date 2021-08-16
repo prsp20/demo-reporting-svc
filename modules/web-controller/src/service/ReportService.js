@@ -7,11 +7,19 @@ const converter = AWS.DynamoDB.Converter;
 
 export const createReport = async (guid) => {
   const items = await findViewEvents(guid);
-
   const csvStringifier = createCsvStringifier({
     header: [
-      {id: 'name', title: 'NAME'},
-      {id: 'lang', title: 'LANGUAGE'}
+      {id: 'rowNumber', title: 'Row Number'},
+      {id: 'packageGuid', title: 'Package Guid'},
+      {id: 'email', title: 'Email'},
+      {id: 'clientSessionId', title: 'Client session ID'},
+      {id: 'reportingId', title: 'Reporting ID'},
+      {id: 'browser', title: 'Browser'},
+      {id: 'device', title: 'Device'},
+      {id: 'operatingSystem', title: 'Operating System'},
+      {id: 'nonce', title: 'nonce'},
+      {id: 'clientAddress', title: 'Client Address'},
+      {id: 'userAgentString', title: 'User Agent String'}
     ]
   });
 
@@ -37,5 +45,10 @@ export const findViewEvents = async (packageGuid) => {
     return null;
   }
 
-  return items.map(item => converter.unmarshall(item));
+  let i = 1;
+  return items.map(item => {
+    let itemWithRowNumber = converter.unmarshall(item);
+    itemWithRowNumber.rowNumber = i;
+    i++;
+  });
 }
