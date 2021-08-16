@@ -24,12 +24,11 @@ export const handleUploadEvents = async (event, context, callback) => {
     Item: convertedEvent
   };
 
-  console.log(body);
+  console.log(convertedEvent);
   try {
     await ddb.putItem(params).promise();
     return returnResponse(callback, 200, {message: "done"})
   } catch (error) {
-    console.log(error.message);
     console.log(error.message);
     return returnErrorResponse(callback, 500, 'View event log failed');
   }
