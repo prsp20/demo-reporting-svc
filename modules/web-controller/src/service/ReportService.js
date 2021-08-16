@@ -1,4 +1,4 @@
-const ExcelJS = require('exceljs');
+import ExcelJS from 'exceljs';
 
 export const createReport = (guid) => {
     const workbook = new ExcelJS.Workbook();
