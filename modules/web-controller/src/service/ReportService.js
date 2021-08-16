@@ -50,5 +50,6 @@ export const findViewEvents = async (packageGuid) => {
     let itemWithRowNumber = converter.unmarshall(item);
     itemWithRowNumber.rowNumber = i;
     i++;
+    return itemWithRowNumber;
   });
 }
