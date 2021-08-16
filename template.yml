@@ -13,7 +13,7 @@ Resources:
   WebControllerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "demo-reporting-svc-${env}"
+      FunctionName: !Sub 'demo-reporting-svc-${env}'
       CodeUri: dist/web-controller/web-controller.zip
       Handler: index.handler
       Runtime: nodejs14.x
@@ -33,11 +33,10 @@ Resources:
             Path: /api/rest/{guid}/view-events
             Method: GET
 
-  # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
   SampleTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: "reporting-svc-${env}"
+      TableName: !Sub 'reporting-svc-${env}'
       PrimaryKey:
         Name: id
         Type: String
