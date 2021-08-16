@@ -1,0 +1,50 @@
+{
+  "name": "user-service",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "---- build ----": "",
+    "build-src": "babel src --out-dir ../../dist/web-controller --ignore '**/*.test.js'",
+    "build": "yarn install && yarn test && yarn build-src",
+    "dist": "yarn build && rimraf node_modules && yarn install --production",
+    "---- eslint ----": "",
+    "eslint:watch": "esw -w --color --cache --fix",
+    "eslint": "eslint .",
+    "---- prepush hooks ----": "",
+    "prepush": "yarn eslint && yarn test",
+    "---- test----": "",
+    "test": "jest --coverage --runInBand",
+    "test:watch": "jest --watch --coverage"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "aws-sdk": "^2.831.0",
+    "formidable": "^1.2.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "ncp": "^2.0.0",
+    "parse-multipart": "^1.0.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.2.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-watch": "^6.0.1",
+    "jest": "^25.2.6",
+    "jest-cli": "^25.2.6",
+    "rimraf": "^3.0.2"
+  }
+}

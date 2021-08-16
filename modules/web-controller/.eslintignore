@@ -1,0 +1,13 @@
+.history
+.idea
+.vscode
+build
+node_modules
+temp
+flow-typed
+flow
+__mocks__
+scripts
+coverage
+lib
+dist
