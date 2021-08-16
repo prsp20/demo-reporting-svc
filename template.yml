@@ -13,7 +13,7 @@ Resources:
   WebControllerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Name: "demo-reporting-svc-${env}"
+      FunctionName: "demo-reporting-svc-${env}"
       CodeUri: dist/web-controller/web-controller.zip
       Handler: index.handler
       Runtime: nodejs14.x
