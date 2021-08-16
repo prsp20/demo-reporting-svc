@@ -4,6 +4,7 @@ import {getUuid} from '../util/util';
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'eu-west-2'});
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const converter = AWS.DynamoDB.Converter;
 
 export const handleUploadEvents = async (event, context, callback) => {
 
@@ -14,10 +15,13 @@ export const handleUploadEvents = async (event, context, callback) => {
   let body = JSON.parse(event.body);
   body.id = getUuid();
 
+  const convertedEvent = converter.marshall(body);
+
   const tableName = process.env.TABLE_NAME;
-  const params = {
+  var params = {
     TableName: tableName,
-    Item: body
+    ConditionExpression: 'attribute_not_exists(id)',
+    Item: convertedEvent
   };
 
   console.log(body);
