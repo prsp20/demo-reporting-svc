@@ -13,14 +13,14 @@ export const handler = async (event, context, callback) => {
     return handleOptionsRequest(event, context, callback);
   }
 
-  const token = getBearerToken(headers);
-  let decodedToken = {};
-
-  try {
-    decodedToken = verifyToken(token);
-  } catch (error) {
-    return returnErrorResponse(callback, 401, "Unauthorized");
-  }
+  // const token = getBearerToken(headers);
+  // let decodedToken = {};
+  //
+  // try {
+  //   decodedToken = verifyToken(token);
+  // } catch (error) {
+  //   return returnErrorResponse(callback, 401, "Unauthorized");
+  // }
 
   if (path === '/api/images' && method === 'POST') {
     return handleUploadImage(event, context, callback);
