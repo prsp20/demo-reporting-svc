@@ -38,6 +38,8 @@ export const handleUploadEvents = async (event, context, callback) => {
 export const handleDownloadReport = async (event, context, callback) => {
   console.log('Downloading report.....');
   const data = await createReport("guid");
+
+  const dataStr = JSON.stringify(data);
   return {
     statusCode: 200,
     headers: {
@@ -47,7 +49,7 @@ export const handleDownloadReport = async (event, context, callback) => {
       'Content-Type': 'text/csv',
       'Content-Disposition': 'attachment; filename=report.csv'
     },
-    body: 'asdf,adsfsa,adsfas,dsafas'
+    body: dataStr
   };
 };
 
