@@ -23,7 +23,7 @@ export const createReport = async (guid) => {
     ]
   });
 
-  return csvStringifier.stringifyRecords(items);
+  return csvStringifier.getHeaderString() + csvStringifier.stringifyRecords(items);
 };
 
 export const findViewEvents = async (packageGuid) => {
