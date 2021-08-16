@@ -36,10 +36,8 @@ export const handleUploadEvents = async (event, context, callback) => {
 };
 
 export const handleDownloadReport = async (event, context, callback) => {
-  console.log('Downloading report.....');
-  const data = await createReport("guid");
-
-  const dataStr = JSON.stringify(data);
+  const guid = event.pathParameters.guid;
+  const data = await createReport(guid);
   return {
     statusCode: 200,
     headers: {
@@ -47,9 +45,9 @@ export const handleDownloadReport = async (event, context, callback) => {
       'Access-Control-Allow-Methods': 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT',
       'Access-Control-Allow-Headers': 'Content-Type,Content-Length,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token',
       'Content-Type': 'text/csv',
-      'Content-Disposition': 'attachment; filename=report.csv'
+      'Content-Disposition': 'attachment; filename=' + guid + '.csv'
     },
-    body: dataStr
+    body: data
   };
 };
 
