@@ -26,7 +26,6 @@ export const handleUploadEvents = async (event, context, callback) => {
     Item: convertedEvent
   };
 
-  console.log(convertedEvent);
   try {
     await ddb.putItem(params).promise();
     return returnResponse(callback, 200, {message: "done"})
@@ -37,7 +36,7 @@ export const handleUploadEvents = async (event, context, callback) => {
 };
 
 export const handleDownloadReport = async (event, context, callback) => {
-  const data = createReport("guid");
+  const data = await createReport("guid");
   return {
     statusCode: 200,
     headers: {
