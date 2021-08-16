@@ -1,4 +1,4 @@
-import stringify from 'csv-stringify';
+import createCsvStringifier from 'csv-writer';
 
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'eu-west-2'});
@@ -7,7 +7,15 @@ const converter = AWS.DynamoDB.Converter;
 
 export const createReport = async (guid) => {
   const items = await findViewEvents(guid);
-  return JSON.stringify(items);
+
+  const csvStringifier = createCsvStringifier({
+    header: [
+      {id: 'name', title: 'NAME'},
+      {id: 'lang', title: 'LANGUAGE'}
+    ]
+  });
+
+  return csvStringifier.stringifyRecords(items);
 };
 
 export const findViewEvents = async (packageGuid) => {
