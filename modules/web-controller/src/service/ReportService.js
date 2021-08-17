@@ -9,7 +9,6 @@ export const createReport = async (guid) => {
   const items = await findViewEvents(guid);
   const csvStringifier = createObjectCsvStringifier({
     header: [
-      {id: 'rowNumber', title: 'Row Number'},
       {id: 'packageGuid', title: 'Package Guid'},
       {id: 'email', title: 'Email'},
       {id: 'clientSessionId', title: 'Client session ID'},
@@ -45,11 +44,8 @@ export const findViewEvents = async (packageGuid) => {
     return null;
   }
 
-  let i = 1;
   return items.map(item => {
-    let itemWithRowNumber = converter.unmarshall(item);
-    itemWithRowNumber.rowNumber = i;
-    i++;
-    return itemWithRowNumber;
+    let unmarshalledItem = converter.unmarshall(item);
+    return unmarshalledItem;
   });
 }
