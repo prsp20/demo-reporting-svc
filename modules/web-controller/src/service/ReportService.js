@@ -12,7 +12,6 @@ export const createReport = async (guid) => {
       {id: 'browser', title: 'Browser'},
       {id: 'device', title: 'Device'},
       {id: 'operatingSystem', title: 'Operating System'},
-      {id: 'nonce', title: 'nonce'},
       {id: 'clientAddress', title: 'Client Address'},
       {id: 'userAgentString', title: 'User Agent String'}
     ]
